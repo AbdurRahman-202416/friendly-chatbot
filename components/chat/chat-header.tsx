@@ -3,7 +3,7 @@
 import Image from "next/image";
 
 import { memo, useCallback } from "react";
-import { PanelLeftIcon, Trash2Icon, BotIcon } from "lucide-react";
+import { PanelLeftIcon, Trash2Icon, BotIcon, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/components/ui/sidebar";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -50,14 +50,15 @@ function PureChatHeader() {
       {/* Brand / session title */}
       <div className="flex items-center gap-2 flex-1 min-w-0">
         <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary flex-shrink-0 overflow-hidden border border-border relative">
-          <Image
+          {/* <Image
             src="/images/project-icon.png"
             alt="AI Logo"
             fill
             sizes="28px"
-            className="object-cover"
+            className="object-contain "
             priority
-          />
+          /> */}
+          <Sparkles className="h-4 w-4 text-white" />
         </div>
         <div className="min-w-0">
           <h1 className="text-sm font-semibold truncate text-foreground">
