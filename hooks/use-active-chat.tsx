@@ -87,14 +87,14 @@ export function ActiveChatProvider({ children }: { children: ReactNode }) {
 
   const lastSavedCountRef = useRef(0);
 
-  // Auto-save messages to localStorage whenever they change
+  // Auto-save messages to localStorage whenever they change or streaming completes
   useEffect(() => {
     if (activeChatId && messages.length > 0) {
       saveMessages(activeChatId, messages);
-      
+
       const currentSession = sessions.find(s => s.id === activeChatId);
       const hasTitle = currentSession && currentSession.title !== "New Chat";
-      
+
       // Update session message count and title if needed
       if (!hasTitle) {
         const lastUserMessage = messages.findLast(m => m.role === 'user');
@@ -107,12 +107,11 @@ export function ActiveChatProvider({ children }: { children: ReactNode }) {
           lastSavedCountRef.current = messages.length;
         }
       } else if (currentSession && currentSession.messageCount !== messages.length) {
-        // Only update if count actually changed to avoid render loop
         updateSession(activeChatId, { messageCount: messages.length });
         lastSavedCountRef.current = messages.length;
       }
     }
-  }, [messages.length, activeChatId, updateSession, sessions]);
+  }, [messages.length, activeChatId, status, updateSession, sessions]);
 
   // Restore messages when the active session changes
   useEffect(() => {
