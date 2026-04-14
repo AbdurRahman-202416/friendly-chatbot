@@ -37,7 +37,7 @@ function CopyButton({ text }: { text: string }) {
         "transition-all duration-150",
         "text-muted-foreground hover:text-foreground",
         "hover:bg-accent",
-        "opacity-0 group-hover:opacity-100 focus:opacity-100"
+        "sm:opacity-0 sm:group-hover:opacity-100 focus:opacity-100"
       )}
       title="Copy message"
     >
@@ -62,12 +62,16 @@ function CodeBlock({
   const match = /language-(\w+)/.exec(className || "");
   const language = match ? match[1] : "";
 
-  const codeText =
-    typeof children === "string"
-      ? children
-      : Array.isArray(children)
-      ? children.join("")
-      : "";
+  // Recursively extract text from children for copying
+  const extractText = (node: any): string => {
+    if (typeof node === "string") return node;
+    if (typeof node === "number") return String(node);
+    if (Array.isArray(node)) return node.map(extractText).join("");
+    if (node?.props?.children) return extractText(node.props.children);
+    return "";
+  };
+
+  const codeText = extractText(children);
 
   const handleCopy = useCallback(async () => {
     try {
@@ -80,31 +84,43 @@ function CodeBlock({
   }, [codeText]);
 
   return (
-    <div className="relative group/code my-3 rounded-xl overflow-hidden border border-[#334155] bg-[#1e293b]">
+    <div className="relative group/code my-3 sm:my-4 rounded-xl overflow-hidden border border-border/50 bg-[#0d1117] shadow-lg max-w-[calc(100vw-6rem)] sm:max-w-full">
       {/* Code block header */}
-      <div className="flex items-center justify-between px-4 py-2 bg-[#1e293b] border-b border-[#334155]">
-        <span className="text-[11px] font-mono font-medium text-[#94a3b8] uppercase tracking-wider">
-          {language || "code"}
-        </span>
+      <div className="flex items-center justify-between px-3 py-2 sm:px-4 sm:py-2.5 bg-[#161b22] border-b border-border/40">
+        <div className="flex items-center gap-2">
+          <div className="hidden sm:flex gap-1.5">
+            <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]/80" />
+            <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]/80" />
+            <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f]/80" />
+          </div>
+          <span className="sm:ml-2 text-[10px] sm:text-[11px] font-mono font-medium text-muted-foreground uppercase tracking-widest">
+            {language || "code"}
+          </span>
+        </div>
         <button
           type="button"
           onClick={handleCopy}
-          className="flex items-center gap-1.5 text-[11px] text-[#94a3b8] hover:text-[#e2e8f0] transition-colors"
+          className="flex items-center gap-1.5 text-[10px] sm:text-[11px] text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded-md hover:bg-muted/50"
         >
           {copied ? (
-            <CheckIcon className="h-3.5 w-3.5 text-emerald-500" />
+            <CheckIcon className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-emerald-500" />
           ) : (
-            <CopyIcon className="h-3.5 w-3.5" />
+            <CopyIcon className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
           )}
           {copied ? "Copied!" : "Copy"}
         </button>
       </div>
-      <code
-        className={cn(className, "block overflow-x-auto px-4 py-4 text-sm text-[#e2e8f0]")}
-        {...props}
-      >
-        {children}
-      </code>
+      <pre className="overflow-x-auto">
+        <code
+          className={cn(
+            className,
+            "hljs block px-3 py-3 sm:px-4 sm:py-4 text-[12px] sm:text-[13px] leading-relaxed font-mono whitespace-pre"
+          )}
+          {...props}
+        >
+          {children}
+        </code>
+      </pre>
     </div>
   );
 }
@@ -120,14 +136,14 @@ function PureMessageItem({ message }: MessageItemProps) {
   return (
     <div
       className={cn(
-        "group flex w-full gap-3 animate-message-in",
+        "group flex w-full gap-2 sm:gap-3 animate-message-in",
         isUser ? "flex-row-reverse" : "flex-row"
       )}
     >
       {/* Avatar */}
       <div
         className={cn(
-          "flex-shrink-0 flex h-8 w-8 items-center justify-center rounded-full mt-0.5 overflow-hidden",
+          "flex-shrink-0 flex h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 items-center justify-center rounded-full mt-1 overflow-hidden",
           isUser
             ? "bg-muted ring-1 ring-border"
             : "bg-gradient-to-br from-primary to-primary/80 shadow-sm shadow-primary/20"
@@ -148,16 +164,19 @@ function PureMessageItem({ message }: MessageItemProps) {
         )}
       </div>
 
-      {/* Bubble */}
+      {/* Bubble Container */}
       <div
         className={cn(
-          "relative flex flex-col max-w-[82%] min-w-0",
-          isUser ? "items-end" : "items-start"
+          "relative flex flex-col min-w-0",
+          isUser
+            ? "items-end max-w-[85%] sm:max-w-[80%] md:max-w-[80%] lg:max-w-[75%]"
+            : "items-start max-w-[85%] sm:max-w-[80%] md:max-w-[80%] lg:max-w-[75%]"
         )}
       >
         <div
           className={cn(
-            "rounded-2xl px-4 py-3 text-sm leading-relaxed",
+            "rounded-2xl px-3 py-2 sm:px-3.5 sm:py-2.5 md:px-4 md:py-3 text-[13px] sm:text-sm leading-relaxed",
+            "max-w-full overflow-hidden",
             isUser
               ? "bg-primary text-primary-foreground rounded-tr-sm shadow-sm shadow-primary/20"
               : "bg-card text-foreground border border-border rounded-tl-sm shadow-sm"
@@ -168,7 +187,7 @@ function PureMessageItem({ message }: MessageItemProps) {
               {textContent}
             </span>
           ) : (
-            <div className="prose-chat text-foreground">
+            <div className="prose-chat text-foreground overflow-hidden">
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeHighlight]}
@@ -196,6 +215,12 @@ function PureMessageItem({ message }: MessageItemProps) {
                       </code>
                     );
                   },
+                  // Wrap tables for horizontal scroll on mobile
+                  table: ({ children, ...props }) => (
+                    <div className="overflow-x-auto -mx-3 px-3 sm:-mx-3.5 sm:px-3.5 md:-mx-4 md:px-4">
+                      <table {...props}>{children}</table>
+                    </div>
+                  ),
                 }}
               >
                 {textContent}
@@ -204,9 +229,9 @@ function PureMessageItem({ message }: MessageItemProps) {
           )}
         </div>
 
-        {/* Copy button — shown on hover */}
+        {/* Copy button — visible on mobile, hover on desktop */}
         {textContent && (
-          <div className="mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-150">
+          <div className="mt-1 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-150">
             <CopyButton text={textContent} />
           </div>
         )}

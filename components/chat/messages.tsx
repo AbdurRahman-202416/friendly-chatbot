@@ -8,7 +8,7 @@ import { MessageItem } from "./message";
 function TypingIndicator() {
   return (
     <div className="flex items-center gap-3">
-      <div className="shrink-0 h-8 w-8 rounded-full bg-linear-to-br from-primary to-primary/80 flex items-center justify-center overflow-hidden shadow-sm">
+      <div className="shrink-0 h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 rounded-full bg-linear-to-br from-primary to-primary/80 flex items-center justify-center overflow-hidden shadow-sm">
         <img
           src="/images/ai.png"
           alt="AI Typing"
@@ -70,10 +70,10 @@ function ErrorState({ onRetry }: { onRetry: () => void }) {
 // ---- Overview (Welcome Screen) ----
 function Overview() {
   return (
-    <div className="flex flex-col items-center justify-center py-12 px-4 text-center animate-message-in">
-      <div className="relative mb-6">
+    <div className="flex flex-col items-center justify-center py-8 sm:py-12 px-4 text-center animate-message-in">
+      <div className="relative mb-4 sm:mb-6">
         <div className="absolute -inset-1 rounded-full bg-linear-to-tr from-primary to-primary/30 blur-sm opacity-50" />
-        <div className="relative h-20 w-20 rounded-full bg-linear-to-br from-primary to-primary/80 flex items-center justify-center overflow-hidden shadow-xl ring-4 ring-background">
+        <div className="relative h-14 w-14 sm:h-18 sm:w-18 md:h-20 md:w-20 rounded-full bg-linear-to-br from-primary to-primary/80 flex items-center justify-center overflow-hidden shadow-xl ring-4 ring-background">
           <img
             src="/images/ai.png"
             alt="Friendly AI Logo"
@@ -82,11 +82,11 @@ function Overview() {
         </div>
       </div>
 
-      <h1 className="text-1xl font-bold tracking-tight text-foreground sm:text-4xl mb-3">
+      <h1 className="text-xl sm:text-2xl md:text-4xl font-bold tracking-tight text-foreground mb-2 sm:mb-3">
         How can I help you today?
       </h1>
-      <p className="text-sm sm:text-xl whitespace-pre-wrap text-muted-foreground mb-6">
-        I'm your AI assistant. Ask me anything!
+      <p className="text-xs sm:text-sm md:text-xl whitespace-pre-wrap text-muted-foreground mb-4 sm:mb-6">
+        I&apos;m your AI assistant. Ask me anything!
       </p>
 
     </div>
@@ -124,10 +124,10 @@ function PureMessageList({
   return (
     <div
       ref={containerRef}
-      className="flex-1 overflow-y-auto px-4 pt-6 pb-4"
+      className="flex-1 overflow-y-auto px-3 sm:px-4 md:px-6 lg:px-8 pt-4 sm:pt-6 pb-3 sm:pb-4"
       aria-live="polite"
     >
-      <div className="mx-auto flex max-w-3xl flex-col gap-5">
+      <div className="mx-auto flex w-full max-w-full md:max-w-4xl lg:max-w-5xl flex-col gap-3 sm:gap-4 md:gap-5">
         {/* Welcome Screen */}
         {messages.length === 0 && !isLoading && (
           <Overview />

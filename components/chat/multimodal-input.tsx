@@ -62,7 +62,7 @@ function PureChatInput({
   const canSend = input.trim().length > 0 && !isLoading;
 
   return (
-    <div className="w-full max-w-3xl mx-auto px-4 pb-4 pt-2">
+    <div className="w-full max-w-full md:max-w-4xl lg:max-w-5xl mx-auto px-3 sm:px-4 pb-3 sm:pb-4 pt-2">
       <div
         className={cn(
           "relative flex items-end gap-2 rounded-2xl border border-border bg-card shadow-sm",
@@ -140,8 +140,8 @@ function PureChatInput({
 
 
       {/* Footer hint */}
-      <div className="text-center text-[11px] text-muted-foreground/50 mt-2 space-y-1">
-        <p>
+      <div className="text-center text-[10px] sm:text-[11px] text-muted-foreground/50 mt-1.5 sm:mt-2 space-y-1">
+        <p className="hidden sm:block">
           Press{" "}
           <kbd className="rounded bg-muted border border-border px-1 py-0.5 font-mono text-[10px]">
             Enter
@@ -153,7 +153,7 @@ function PureChatInput({
           for newline
         </p>
 
-        <p className="text-[10px]">
+        <p className="text-[9px] sm:text-[10px]">
           © {new Date().getFullYear()} Friendly Chatbot. All rights reserved.
         </p>
       </div>

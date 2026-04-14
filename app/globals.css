@@ -248,7 +248,13 @@
   width: 100%;
   border-collapse: collapse;
   margin: 0.75em 0;
-  font-size: 0.9em;
+  font-size: 0.85em;
+}
+
+@media (min-width: 640px) {
+  .prose-chat table {
+    font-size: 0.9em;
+  }
 }
 
 .prose-chat th,
