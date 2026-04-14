@@ -17,11 +17,11 @@ function TypingIndicator() {
       </div>
       <div className="bg-card border border-border rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm">
         <div className="flex items-center gap-1.5">
-          {[0, 1, 2].map((i) => (
+          {[0, 1, 2, 3, 4, 5].map((i) => (
             <span
               key={i}
               className="h-2 w-2 rounded-full bg-primary/50 animate-typing-dot"
-              style={{ animationDelay: `${i * 0.2}s` }}
+              style={{ animationDelay: `${i * 0.1}s` }}
             />
           ))}
         </div>
@@ -81,13 +81,12 @@ function Overview() {
           />
         </div>
       </div>
-      
-      <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl mb-3">
+
+      <h1 className="text-1xl font-bold tracking-tight text-foreground sm:text-4xl mb-3">
         How can I help you today?
       </h1>
-      <p className="max-w-md text-muted-foreground leading-relaxed mb-10">
-        I&apos;m your Friendly AI Assistant, powered by Groq & Llama 3.3. 
-        Ask me anything from coding help to creative writing!
+      <p className="text-sm sm:text-xl whitespace-pre-wrap text-muted-foreground mb-6">
+        I'm your AI assistant. Ask me anything!
       </p>
 
     </div>
