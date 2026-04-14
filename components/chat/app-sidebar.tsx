@@ -152,8 +152,58 @@ function PureAppSidebar() {
                 tooltip="Friendly Chatbot"
               >
                 <Link href="/" onClick={() => setOpenMobile(false)}>
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary/80 shadow-sm shadow-primary/20">
-                    <BotIcon className="h-4 w-4 text-primary-foreground" />
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg ">
+                    <svg
+                      width="120"
+                      height="120"
+                      viewBox="0 0 120 120"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <defs>
+                        {/* Metallic body */}
+                        <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1">
+                          <stop offset="0%" stopColor="#e2e8f0" />
+                          <stop offset="50%" stopColor="#cbd5f5" />
+                          <stop offset="100%" stopColor="#94a3b8" />
+                        </linearGradient>
+
+                        {/* Glow */}
+                        <radialGradient id="eyeGlow" cx="50%" cy="50%" r="50%">
+                          <stop offset="0%" stopColor="#34d399" />
+                          <stop offset="100%" stopColor="#065f46" />
+                        </radialGradient>
+                      </defs>
+
+                      {/* Head */}
+                      <rect x="15" y="10" width="90" height="70" rx="20" fill="url(#metal)" />
+
+                      {/* Face screen */}
+                      <rect x="25" y="20" width="70" height="50" rx="15" fill="#020617" />
+
+                      {/* Eyes */}
+                      <circle cx="45" cy="45" r="6" fill="url(#eyeGlow)" />
+                      <circle cx="75" cy="45" r="6" fill="url(#eyeGlow)" />
+
+                      {/* Smile */}
+                      <path
+                        d="M45 58 Q60 68 75 58"
+                        stroke="#34d399"
+                        strokeWidth="2"
+                        fill="none"
+                        strokeLinecap="round"
+                      />
+
+                      {/* Antenna */}
+                      <line x1="60" y1="5" x2="60" y2="10" stroke="#94a3b8" strokeWidth="2" />
+                      <circle cx="60" cy="4" r="3" fill="#34d399" />
+
+                      {/* Body */}
+                      <rect x="30" y="80" width="60" height="25" rx="10" fill="url(#metal)" />
+
+                      {/* Core light */}
+                      <circle cx="60" cy="92" r="5" fill="url(#eyeGlow)" />
+                    </svg>
                   </div>
                 </Link>
               </SidebarMenuButton>
@@ -222,4 +272,4 @@ function PureAppSidebar() {
 }
 
 export const AppSidebar = memo(PureAppSidebar);
- 
+
