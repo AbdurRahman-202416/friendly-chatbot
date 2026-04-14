@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useCallback, useEffect, useRef } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { SendHorizontal, Sparkles, SquareIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -61,6 +61,12 @@ function PureChatInput({
 
   const canSend = input.trim().length > 0 && !isLoading;
 
+  const [year, setYear] = useState<number>(2026);
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
+
   return (
     <div className="w-full max-w-full md:max-w-4xl lg:max-w-5xl mx-auto px-3 sm:px-4 pb-3 sm:pb-4 pt-2">
       <div
@@ -72,7 +78,7 @@ function PureChatInput({
         )}
       >
         {/* AI indicator dot */}
-        <div className="flex-shrink-0 flex items-center justify-center w-10 pb-[13px] pl-1">
+        <div className="shrink-0 flex items-center justify-center w-10 pb-[13px] pl-1">
           <Sparkles
             className={cn(
               "h-4 w-4 transition-colors duration-300",
@@ -105,7 +111,7 @@ function PureChatInput({
         />
 
         {/* Send / Stop button */}
-        <div className="flex-shrink-0 pb-2 pr-2">
+        <div className="shrink-0 pb-2 pr-2">
           <button
             type="button"
             onClick={isLoading ? stop : () => sendMessage()}
@@ -154,7 +160,7 @@ function PureChatInput({
         </p>
 
         <p className="text-[9px] sm:text-[10px]">
-          © {new Date().getFullYear()} Friendly Chatbot. All rights reserved.
+          © {year} Friendly Chatbot. All rights reserved.
         </p>
       </div>
     </div>
