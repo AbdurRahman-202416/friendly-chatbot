@@ -5,7 +5,7 @@ import { ChatShell } from "@/components/chat/shell";
 import { ActiveChatProvider } from "@/hooks/use-active-chat";
 
 export const metadata: Metadata = {
-  title: "Friendly Chatbot — AI Assistant",
+  title: "Friendly Chatbot AI Assistant",
   description: "Chat with an AI assistant. Ask anything, get instant answers.",
 };
 
