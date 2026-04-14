@@ -1,7 +1,7 @@
 "use client";
 
 import { memo, useCallback, useEffect, useRef } from "react";
-import { ArrowUpIcon, Sparkles, SquareIcon } from "lucide-react";
+import { SendHorizontal, Sparkles, SquareIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ChatInputProps {
@@ -85,7 +85,7 @@ function PureChatInput({
         <textarea
           ref={textareaRef}
           id="chat-input"
-          placeholder={isLoading ? "AI is responding..." : "Message Friendly Chatbot…"}
+          placeholder={isLoading ? "AI is responding..." : "Chat with Friendly Chatbot…"}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
@@ -94,6 +94,7 @@ function PureChatInput({
           className={cn(
             "flex-1 resize-none bg-transparent py-3.5 text-sm leading-relaxed text-foreground",
             "placeholder:text-muted-foreground/60",
+            "placeholder:text-nowrap",
             "focus:outline-none",
             "min-h-[52px]",
             "max-h-60",
@@ -110,45 +111,52 @@ function PureChatInput({
             onClick={isLoading ? stop : () => sendMessage()}
             disabled={!canSend && !isLoading}
             className={cn(
-              "flex h-9 w-9 items-center justify-center rounded-xl",
-              "transition-all duration-150",
+              "group flex h-9 w-9 items-center justify-center rounded-xl",
+              "transition-all duration-200",
               "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
               isLoading
                 ? "bg-primary/10 text-primary hover:bg-primary/20"
                 : canSend
-                ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm shadow-primary/20"
-                : "bg-muted text-muted-foreground/40 cursor-not-allowed"
+                  ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm shadow-primary/20"
+                  : "bg-muted text-muted-foreground/40 cursor-not-allowed"
             )}
             aria-label={isLoading ? "Stop generation" : "Send message"}
             title={
               isLoading
                 ? "Stop (Enter)"
                 : canSend
-                ? "Send (Enter)"
-                : "Type a message"
+                  ? "Send (Enter)"
+                  : "Type a message"
             }
           >
             {isLoading ? (
               <SquareIcon className="h-3.5 w-3.5 fill-current" />
             ) : (
-              <ArrowUpIcon className="h-4 w-4" />
+              <SendHorizontal className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-active:scale-90" />
             )}
           </button>
         </div>
       </div>
 
+
       {/* Footer hint */}
-      <p className="text-center text-[11px] text-muted-foreground/50 mt-2">
-        Press{" "}
-        <kbd className="rounded bg-muted border border-border px-1 py-0.5 font-mono text-[10px]">
-          Enter
-        </kbd>{" "}
-        to send,{" "}
-        <kbd className="rounded bg-muted border border-border px-1 py-0.5 font-mono text-[10px]">
-          Shift+Enter
-        </kbd>{" "}
-        for newline
-      </p>
+      <div className="text-center text-[11px] text-muted-foreground/50 mt-2 space-y-1">
+        <p>
+          Press{" "}
+          <kbd className="rounded bg-muted border border-border px-1 py-0.5 font-mono text-[10px]">
+            Enter
+          </kbd>{" "}
+          to send,{" "}
+          <kbd className="rounded bg-muted border border-border px-1 py-0.5 font-mono text-[10px]">
+            Shift+Enter
+          </kbd>{" "}
+          for newline
+        </p>
+
+        <p className="text-[10px]">
+          © {new Date().getFullYear()} Friendly Chatbot. All rights reserved.
+        </p>
+      </div>
     </div>
   );
 }
