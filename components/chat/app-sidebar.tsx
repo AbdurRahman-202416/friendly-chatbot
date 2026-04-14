@@ -1,7 +1,7 @@
 "use client";
 
 import { memo, useCallback } from "react";
-import { BotIcon, MessageSquareIcon, PenSquareIcon, Trash2Icon } from "lucide-react";
+import { BotIcon, MessageSquareIcon, PenSquareIcon, Trash2Icon, X } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
 import {
@@ -208,6 +208,15 @@ function PureAppSidebar() {
                 </Link>
               </SidebarMenuButton>
             </div>
+
+            {/* Close button for mobile */}
+            <SidebarMenuButton
+              onClick={() => setOpenMobile(false)}
+              className="md:hidden size-8 p-0 items-center justify-center text-muted-foreground hover:bg-muted"
+            >
+              <X className="size-4" />
+              <span className="sr-only">Close sidebar</span>
+            </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
