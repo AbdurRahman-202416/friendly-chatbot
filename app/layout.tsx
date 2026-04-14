@@ -45,6 +45,7 @@ export default function RootLayout({
     <html
       className={`${geist.variable} ${geistMono.variable}`}
       lang="en"
+      suppressHydrationWarning
     >
       <body className="antialiased bg-background text-foreground" suppressHydrationWarning>
         <QueryProvider>
